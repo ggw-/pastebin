@@ -1,0 +1,149 @@
+
+
+This is a quick and dirty way to get arc data via snmp for graphing.
+
+
+
+Create a file and add the zstatfetch contents to it,  chmod 755 it.  (/usr/local/bin/zfs_stats.sh)
+edit your snmpd.conf file and add "extend zfsFoo /usr/local/bin/zstatfetch" to it in the appropiate place (the bottom usually works)
+restart the snmpd service so it re-reads the config.
+
+The included example here (zfs_stats.sh) collects everything,  you could trim it down to only include what you're intrested in.
+you shoud now be able to retrieve status from it:
+
+
+mac-greg:~ greg$ snmpwalk -v2c -c "ShineOnYouCrazyDiamond" storage2 NET-SNMP-EXTEND-MIB::nsExtendObjects
+
+
+```
+NET-SNMP-EXTEND-MIB::nsExtendNumEntries.0 = INTEGER: 1
+NET-SNMP-EXTEND-MIB::nsExtendCommand."zfsFoo" = STRING: /usr/local/bin/zfs_stats.sh
+NET-SNMP-EXTEND-MIB::nsExtendArgs."zfsFoo" = STRING:
+NET-SNMP-EXTEND-MIB::nsExtendInput."zfsFoo" = STRING:
+NET-SNMP-EXTEND-MIB::nsExtendCacheTime."zfsFoo" = INTEGER: 5
+NET-SNMP-EXTEND-MIB::nsExtendExecType."zfsFoo" = INTEGER: exec(1)
+NET-SNMP-EXTEND-MIB::nsExtendRunType."zfsFoo" = INTEGER: run-on-read(1)
+NET-SNMP-EXTEND-MIB::nsExtendStorage."zfsFoo" = INTEGER: permanent(4)
+NET-SNMP-EXTEND-MIB::nsExtendStatus."zfsFoo" = INTEGER: active(1)
+NET-SNMP-EXTEND-MIB::nsExtendOutput1Line."zfsFoo" = STRING: time 19:30:37
+NET-SNMP-EXTEND-MIB::nsExtendOutputFull."zfsFoo" = STRING: time 19:30:37
+hits 0
+miss 0
+read 0
+hit_percent 0
+miss_percent 0
+dhit 0
+dmis 0
+dh_percent 0
+dm_percent 0
+phit 0
+pmis 0
+ph_percent 0
+pm_percent 0
+mhit 0
+mmis 0
+mread 0
+mh_percent 0
+mm_percent 0
+arcsz 92G
+size 92G
+c 94G
+mfu 0
+mru 0
+mfug 0
+mrug 0
+eskip 0
+el2skip 0
+el2cach 0
+el2el 0
+el2mfu 0
+el2mru 0
+el2inel 0
+mtxmis 0
+dread 0
+pread 0
+l2hits 0
+l2miss 0
+l2read 0
+l2hit_percent 0
+l2miss_percent 0
+l2pref 1.6G
+l2mfu 2.3T
+l2mru 4.3T
+l2data 6.6T
+l2meta 11G
+l2pref_percent 0
+l2mfu_percent 34
+l2mru_percent 65
+l2data_percent 99
+l2meta_percent 0
+l2asize 6.6T
+l2size 7.4T
+l2bytes 0
+grow 1
+need 0
+free 61G
+avail 54G
+waste 4.7M
+NET-SNMP-EXTEND-MIB::nsExtendOutNumLines."zfsFoo" = INTEGER: 59
+NET-SNMP-EXTEND-MIB::nsExtendResult."zfsFoo" = INTEGER: 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".1 = STRING: time 19:30:37
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".2 = STRING: hits 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".3 = STRING: miss 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".4 = STRING: read 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".5 = STRING: hit_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".6 = STRING: miss_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".7 = STRING: dhit 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".8 = STRING: dmis 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".9 = STRING: dh_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".10 = STRING: dm_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".11 = STRING: phit 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".12 = STRING: pmis 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".13 = STRING: ph_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".14 = STRING: pm_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".15 = STRING: mhit 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".16 = STRING: mmis 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".17 = STRING: mread 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".18 = STRING: mh_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".19 = STRING: mm_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".20 = STRING: arcsz 92G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".21 = STRING: size 92G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".22 = STRING: c 94G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".23 = STRING: mfu 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".24 = STRING: mru 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".25 = STRING: mfug 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".26 = STRING: mrug 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".27 = STRING: eskip 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".28 = STRING: el2skip 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".29 = STRING: el2cach 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".30 = STRING: el2el 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".31 = STRING: el2mfu 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".32 = STRING: el2mru 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".33 = STRING: el2inel 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".34 = STRING: mtxmis 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".35 = STRING: dread 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".36 = STRING: pread 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".37 = STRING: l2hits 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".38 = STRING: l2miss 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".39 = STRING: l2read 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".40 = STRING: l2hit_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".41 = STRING: l2miss_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".42 = STRING: l2pref 1.6G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".43 = STRING: l2mfu 2.3T
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".44 = STRING: l2mru 4.3T
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".45 = STRING: l2data 6.6T
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".46 = STRING: l2meta 11G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".47 = STRING: l2pref_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".48 = STRING: l2mfu_percent 34
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".49 = STRING: l2mru_percent 65
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".50 = STRING: l2data_percent 99
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".51 = STRING: l2meta_percent 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".52 = STRING: l2asize 6.6T
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".53 = STRING: l2size 7.4T
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".54 = STRING: l2bytes 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".55 = STRING: grow 1
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".56 = STRING: need 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".57 = STRING: free 61G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".58 = STRING: avail 54G
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."zfsFoo".59 = STRING: waste 4.7M
+```

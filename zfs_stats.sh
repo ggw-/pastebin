@@ -1,8 +1,11 @@
 #!/bin/bash
-# way too much below but you're free to edit it. Take a look at the arcstat usage man page and add only what you need.   July 3 2024 -ggw
+#
+# way too much below but you're free to edit it. Take a look at the arcstat usage man page and add only what you need. 
+# this example is for POC..   July 3 2024 -ggw
+#
 
-arcstat_output=$(arcstat -a 1 1 | tail -1)
 
+arcstat_output=$(/usr/bin/arcstat -a 1 1 | /usr/bin/tail -1)
 
 time=$(echo "$arcstat_output" | awk '{print $1}')
 hits=$(echo "$arcstat_output" | awk '{print $2}')
